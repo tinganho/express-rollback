@@ -1,0 +1,7 @@
+<div class="su-help">
+
+    <span>{{!it.help.title}}</span>
+
+    <p>{{!it.help.content}}</p>
+
+</div>

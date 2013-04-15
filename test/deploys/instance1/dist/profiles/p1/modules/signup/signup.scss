@@ -1,0 +1,700 @@
+
+@import "compass/css3/user-interface";
+@import "compass/css3/box-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/css3/images";
+
+
+$panel-max-width    : 540px;
+$panel-margins      : 10px;
+$responsive-treshold: $panel-max-width + $panel-margins * 2;
+
+.signup-wrapper {
+
+    position    : relative;
+    margin      : $panel-margins;
+
+    max-width   : $panel-max-width;
+
+    @media ( min-width : $responsive-treshold ) and ( orientation : landscape ) {
+
+        width       : $panel-max-width;
+        float       : left;
+
+    }
+
+    @media ( min-width : $responsive-treshold ) and ( max-width : $responsive-treshold + 70 + 380 ) {
+
+        float       : none;
+        margin      : $panel-margins auto;
+
+    }
+
+}
+
+.signup {
+
+    background  : url( "../images/backgrounds/grey-pattern.png" ) repeat;
+
+    @media ( -webkit-min-device-pixel-ratio: 1.5 ),
+            ( min--moz-device-pixel-ratio: 3/2 ),
+            ( min-resolution: 1.5dppx ),
+            ( min-resolution: 192dpi ) {
+
+        background-size : 21px 21px;
+
+    }
+
+    @include box-shadow( 0 0 10px #000 );
+
+    max-width   : $panel-max-width;
+
+    @include transition-property( opacity, transform, left, z-index );
+    @include transition-duration( .5s, .5s, .5s, 0 );
+    @include transition-timing-function( ease-in-out );
+    @include transition-delay( 0 );
+
+    .su-step2-active & {
+
+        @include transition-property( opacity, transform, left, z-index );
+        @include transition-duration( .5s );
+        @include transition-delay( 0, 0, 0, .5s );
+    }
+
+}
+
+.su-step1 {
+
+    @include transform( translateX( 0 ) );
+    z-index     : 10;
+
+    .su-step2-active & {
+
+        @include transform( translateX( -150% ) );
+        z-index     : -1;
+
+    }
+
+}
+
+.su-step2 {
+
+    position    : absolute;
+    top         : 0;
+    left        : 0;
+
+    width       : 100%;
+    height      : 100%;
+
+    z-index     : -1;
+
+    @include opacity( .5 );
+    @include transform( scale( .96 ) );
+
+    @media ( min-width : $responsive-treshold ) {
+
+        .csstransforms & {
+
+            left        : 20px;
+
+        }
+
+    }
+
+    .su-step2-active & {
+
+        @include opacity( 1 );
+        @include transform( scale( 1 ) );
+
+        z-index     : 10;
+        left        : 0;
+
+
+    }
+
+}
+
+.su-help {
+
+    width           : 380px;
+    float           : left;
+
+    color           : #fff;
+    font-size       : 24px;
+    line-height     : 36px;
+    font-weight     : 100;
+    margin          : 70px 0 0 50px;
+    text-shadow     : 1px -1px 1px #000;
+
+    @media ( max-width : $responsive-treshold + 70 + 380 ) {
+
+        display         : none;
+
+    }
+
+    @media ( min-height : 960px ) and ( orientation : portrait ) {
+
+        display         : block;
+        width           : 100%;
+
+        margin          : 10px 20px;
+
+    }
+
+    -webkit-animation   : cool .3s ease-in-out;
+
+}
+
+.su-link {
+
+    color           : #52a1e4;
+    cursor          : pointer;
+
+}
+
+
+/* Step 1 header elements */
+
+.su-header {
+
+    padding         : 20px 5px;
+
+    overflow        : hidden;
+    position        : relative;
+
+    border-bottom   : 1px solid #b4b4b4;
+
+    color           : #fff;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        padding     : 45px 30px 20px;
+
+        .su-step2 & {
+
+            padding     : 35px 30px 30px;
+
+        }
+
+    }
+
+    @include background-size-cover( "../images/backgrounds/login-cover.jpg" );
+
+}
+
+.su-mask {
+
+    position        : absolute;
+    top             : 0;
+    left            : 0;
+
+    width           : 100%;
+    height          : 100%;
+
+    @include background-image( linear-gradient( bottom, #000, rgba( 0, 0, 0, 0 ) ) );
+
+
+}
+
+.su-header-content {
+
+    position        : relative;
+    z-index         : 1;
+
+    overflow        : hidden;
+}
+
+.su-profile-pic {
+
+    position        : relative;
+
+    height          : 97px;
+    width           : 100px;
+
+    margin-right    : 10px;
+
+    background-size : cover;
+
+    @include border-radius( 1px );
+    @include float-left;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        height          : 97px;
+        width           : 100px;
+
+        margin-right    : 20px;
+
+    }
+
+
+}
+
+.su-cover-name {
+
+    font-size       : 18px;
+    font-weight     : 100;
+    margin          : 10px 0 0;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        font-size       : 24px;
+
+    }
+
+
+}
+
+.su-cover-url {
+
+    font-size       : 14px;
+    font-weight     : 200;
+
+    margin          : 5px 0 0;
+
+}
+
+.su-upload {
+
+    // display         : none;
+    position        : absolute;
+    top             : 0;
+    left            : -77px;
+    cursor          : pointer;
+    width           : 177px;
+
+    @include opacity(0);
+
+}
+
+.su-cover-pic {
+
+    display         : none;
+
+    position        : absolute;
+    right           : 0;
+    bottom          : 0;
+
+    font-size       : 14px;
+    color           : #ccc;
+
+    cursor          : pointer;
+
+}
+
+.su-camera {
+
+    height          : sprite-sprite-height( icon-camera );
+    width           : sprite-sprite-width( icon-camera );
+
+    margin-right    : .5em;
+
+    vertical-align  : normal;
+}
+
+/* Step 1 form elements */
+
+
+.su-form {
+
+    border-top  : 1px solid #ededed;
+
+}
+
+.su-form-content {
+
+    max-width   : 400px;
+
+    margin-bottom   : 50px;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        padding     : 5px 20px;
+
+    }
+}
+
+
+.su-label-gender {
+
+    min-width       : 90px;
+
+    margin-right    : 5px;
+
+    @include float-left;
+
+    @media ( min-width :$responsive-treshold ) {
+
+        width       : 160px;
+
+    }
+}
+
+.su-label-birthdate {
+
+    overflow    : hidden;
+
+    .su-input, .su-input-year {
+
+        width       : 45px;
+
+        display     : inline-block;
+
+        margin-right    : 5px;
+
+    }
+
+    .su-input-year {
+
+        width       : 67px;
+        margin-right: 0;
+
+    }
+
+    .su-input-date {
+
+        display     : -webkit-inline-flex;
+        font-size   : 14.8px;
+
+    }
+    .input-date-mobile {
+
+      @media ( max-width: 575px ) {
+        display: -webkit-flexbox-inline;
+      }
+      @media ( min-width: 575px ) {
+        display: none;
+      }
+    }
+    .input-date-desktop {
+
+      @media ( min-width: 575px ) {
+        display: inline-block;
+      }
+      @media ( max-width: 575px ) {
+        display: none;
+      }
+    }
+
+}
+
+.no-dateinput .su-input-date {
+
+    display     : none;
+
+}
+
+.su-birthdate {
+
+    display     : block;
+
+}
+
+.su-input, .su-input-year {
+
+    .su-prefilled & {
+
+        color       : #999;
+
+    }
+
+    &:focus {
+
+        color       : #242424;
+
+    }
+
+}
+
+/* Signup footer */
+
+.su-form-footer {
+
+    border-top  : 1px solid #cecece;
+    background  : #eaeaea;
+
+    color       : #999;
+
+    padding     : 10px;
+
+    overflow    : hidden;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        padding     : 20px;
+
+    }
+
+
+}
+
+.su-terms {
+
+    @include float-left;
+    max-width   : 280px;
+
+}
+
+.su-submit {
+
+    @include float-right;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        padding     : .6em;
+
+        font-size   : 24px;
+        min-width   : 200px;
+        text-align  : center;
+
+    }
+
+}
+
+
+/* Step 2 */
+
+.su-step2 {
+
+    @media ( min-width : $responsive-treshold ) {
+
+        height          : 605px;
+
+        .su-form {
+
+            height          : 418px;
+
+        }
+
+
+        .su-form-footer {
+
+            position        : absolute;
+            width           : 100%;
+            bottom          : 0;
+
+            @include box-shadow( 0 0 9px #000 );
+
+        }
+
+    }
+
+}
+
+.su-skip {
+
+    font-size       : 12px;
+
+}
+
+.su-services-list {
+
+    margin          : 0;
+    padding         : 0;
+    border          : solid #b4b4b4;
+    border-width    : 0 0 1px;
+
+    width           : 100%;
+
+    @include box-shadow( 0 1px 0 #eee );
+
+    display         : table;
+    table-layout    : fixed;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        display         : block;
+        float           : left;
+
+        width           : 180px;
+
+        border-width    : 0 1px 0 0;
+        @include box-shadow( 1px 0 0 #eee );
+
+        height          : 100%;
+
+    }
+
+
+}
+
+.su-error-message {
+
+    position         : relative;
+    margin-left      : 10px;
+    margin-right     : 10px;
+    padding          : 0px 10px;
+    background-color : #eb7575;
+    border           : 1px solid #e76163;
+    color            : white;
+    border-radius    : 4px;
+
+}
+
+.su-error-message-text {
+
+    margin           : 5px 0px 5px 35px;
+    font-size        : 14px;
+    padding          : 5px 0px 5px 10px;
+    border-left      : 1px solid #e76163;
+    display          : inline-block;
+
+}
+
+.su-error-message-warning-icon {
+
+   position: absolute;
+   top: 50%;
+   margin-top: -15px;
+   left: 8px;
+}
+
+.su-service {
+
+    list-style      : none;
+    text-align      : center;
+    font-size       : 14px;
+    vertical-align  : middle;
+
+    height          : 48px;
+
+    display         : table-cell;
+
+    cursor          : pointer;
+
+    @media ( min-width : $responsive-treshold ) {
+
+        display         : block;
+        text-align      : left;
+
+        height          : auto;
+        padding         : 20px 15px;
+
+    }
+
+    @media ( min-width : $responsive-treshold ) {
+
+        & .su-icon, &:hover .su-icon {
+
+            display         : none;
+        }
+
+        .su-icontext {
+
+            display         : inline-block;
+
+        }
+
+    }
+
+    @media ( max-width : $responsive-treshold ) {
+
+        .su-icon {
+
+            display         : inline-block;
+        }
+
+        .su-icontext {
+
+            display         : none;
+
+        }
+
+    }
+
+}
+
+
+.sp-active, .su-service:hover {
+
+    background      : rgba( 255, 255, 255, .32 );
+
+}
+
+
+/* Friend list module || To be externalized */
+
+.friend-list {
+
+    margin          : 0;
+    padding         : 0;
+
+    overflow        : hidden;
+
+    @media ( min-height: 625px ) {
+
+        height          : 100%;
+        overflow        : auto;
+-webkit-overflow-scrolling: touch;
+
+    }
+
+
+}
+
+.fl-item {
+
+    font-size       : 14px;
+    list-style      : none;
+
+    display         : block;
+    padding         : 10px;
+    border-bottom   : 1px solid #ccc;
+
+    width           : 100%;
+
+    .button-light {
+
+        @include float-right;
+        margin          : 7px 0;
+        min-width       : 80px;
+
+        text-align      : center;
+
+    }
+
+}
+
+.fl-user-wrapper {
+
+    display         : block;
+    // overflow     : hidden;
+
+
+}
+
+.fl-user {
+
+    display         : table-cell;
+    vertical-align  : middle;
+
+    height          : 50px;
+
+}
+
+.fl-pp {
+
+    width           : 46px;
+    height          : 46px;
+    margin-right    : 10px;
+    border          : 1px solid #f2f2f2;
+
+    @include box-shadow( 0 1px 2px 1px rgba( 0, 0, 0, .2 ) );
+    @include border-radius( 1px );
+    @include float-left;
+
+}
+
+.fl-name {
+
+    display         : block;
+
+}
+
+.fl-meta {
+
+    display         : block;
+    color           : #999;
+
+}

@@ -1,0 +1,8 @@
+{{##def.cropMask     : load('./crop-mask.part') #}}
+{{##def.imageWrapper : load('./image-wrapper.part') #}}
+
+
+<div class="image-crop">
+  {{#def.cropMask}}
+  {{#def.imageWrapper}}
+</div>

@@ -1,0 +1,3 @@
+<script src="lib/chai.js"></script>
+<script>expect = chai.expect</script>
+<script>should = chai.should();</script>

@@ -1,0 +1,34 @@
+.modal {
+  position: relative;
+  background-color: #999;
+  margin: 0 auto;
+  min-height: 300px;
+  max-height: 1000px;
+  min-width: 200px;
+  max-width: 1000px;
+  top: 15%;
+  display: inline-block;
+  text-align: left;
+  @include single-box-shadow(rgba(0, 0, 0, 0.3), 1px, 1px, 50px, 30px);
+  @include transition(transform 0.5s, opacity 0.5s);
+
+  &.initial {
+    @include transform(scale(0.5, 0.5));
+    opacity: 0;
+  }
+}
+.modal-footer {
+  height: 60px;
+  bottom: 0;
+  margin: auto;
+  padding: 9px 9px 9px 40px;
+  left: 0;
+  right: 0;
+  background-color: #ddd;
+}
+.modal-submit-layout {
+  float: right;
+}
+.modal-desc {
+  color: #999;
+}

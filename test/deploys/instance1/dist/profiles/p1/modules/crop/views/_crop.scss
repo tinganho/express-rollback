@@ -1,0 +1,72 @@
+// Settings
+$crop-padding: 60px;
+$side-length: 400px;
+$background-color: rgba(0, 0, 0, 0.3);
+$border-width: 3px;
+
+$side: $side-length - 2*$crop-padding;
+
+.image-crop {
+  position: relative;
+  height: $side-length;
+  width: $side-length;
+  overflow: hidden;
+}
+.image-mask {
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+  &.initial {
+    @include transform(scale(0.5, 0.5));
+  }
+  &.final {
+    @include transform(scale(1, 1));
+  }
+}
+.image-mask-top, .image-mask-bottom {
+  height: $crop-padding;
+  background-color: $background-color;
+}
+.image-mask-top {
+  width: 100%;
+}
+.image-mask-bottom {
+  width: 100%;
+}
+.image-mask-body {
+  position: relative;
+  height: $side-length - 2*$crop-padding;
+}
+.image-mask-center {
+  width: $side;
+  height: $side;
+  border: $border-width solid white;
+  float: left;
+  background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+  &.cropping {
+    border-color: white;
+  }
+  &.cropped {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-color: #4183c4;
+  }
+}
+.image-mask-left, .image-mask-right {
+  width: $crop-padding;
+  background-color: $background-color;
+  height: 100%;
+}
+.image-mask-left {
+  float: left;
+}
+.image-mask-right {
+  float: right;
+}
+.image-wrapper {
+  position: absolute;
+  left: $crop-padding;
+  top: $crop-padding;
+}
+.image-mask-crop-helper {
+  display: none;
+}

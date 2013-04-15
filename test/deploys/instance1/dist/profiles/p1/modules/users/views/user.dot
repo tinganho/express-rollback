@@ -1,0 +1,12 @@
+<li class="fl-item">
+    <div class="button-light">{{!it._type}}</div>
+
+    <div class="fl-user-wrapper">
+        <div class="fl-pp sp-signup sp-signup-man-dark"></div>
+        <div class="fl-user">
+            <span class="fl-name">{{!it._fullname}}</span>
+            <span class="fl-meta">{{!it.meta}}</span>
+        </div>
+    </div>
+
+</li>

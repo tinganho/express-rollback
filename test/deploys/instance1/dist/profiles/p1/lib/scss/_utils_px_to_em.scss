@@ -1,0 +1,3 @@
+@mixin px_to_em( $px ) {
+	font-size: ( $px / $default-font-size )em;
+}

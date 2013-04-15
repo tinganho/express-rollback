@@ -1,0 +1,93 @@
+<div class="login-overlay"></div>
+
+<div class="login-signin-wrapper">
+    <div class="login-signin js-signin{{?it.lsClass}} {{=it.lsClass}}{{?}}">
+
+        <span class="js-signin-close ls-close sp-hover">
+            <i class="sp-login sp-login-close-inactive"></i>
+        </span>
+
+        <div class="ls-content-login">
+
+            <a class="button-light ls-weibo js-signin-weibo" href="{{=it.weiboCallbackUrl}}">
+                <i class="sp-login sp-login-weibo2"></i>Sign in with Weibo
+            </a>
+
+            <form class="js-signin-form" method="post" action="authenticate">
+                <fieldset class="form-fieldset">
+                    <legend class="form-legend">Log in with your P1 account</legend>
+                    <label class="form-label" for="username">
+                        Email
+                        <input class="form-input-alt" type="email" name="username" />
+                    </label>
+                    <label class="form-label" for="password">
+                        Password
+                        <input class="form-input-alt" type="password" name="password" />
+                    </label>
+                </fieldset>
+
+                <div class="ls-footer">
+
+                    <span class="su-link js-signin-forgot">Forgot password?</span>
+
+                    <div class="ls-submit-wrapper">
+                        <input class="button-blue su-submit js-signin-submit" type="submit" value="login" />
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+        <div class="ls-content-forgot">
+
+            <form class="js-forgot-form" method="post" action="forgot-password">
+                <fieldset class="form-fieldset">
+                    <legend class="form-legend">Enter your email address and press Submit, check your inbox shortly for further instructions</legend>
+                    <label class="form-label" for="username">
+                        Email
+                        <input class="form-input-alt" type="email" name="email" />
+                    </label>
+                </fieldset>
+
+                <div class="ls-footer">
+
+                    <span class="su-link js-cancel-forgot">Cancel</span>
+
+                    <div class="ls-submit-wrapper">
+                        <input class="button-blue su-submit js-signin-submit" type="submit" value="Submit" />
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="login-page">
+
+    <div class="login-header">
+        <i class="sp-login sp-login-logo"></i>
+        <div class="lh-signin js-signin-open">
+            <i class="sp-login sp-login-profile"></i>Log in
+        </div>
+    </div>
+
+    <div class="login-content">
+
+        <h1 class="lc-title">
+            <div>P1</div>
+            <div class="lc-share">Share and recommend your favorite things, get inspiration from your friends.</div>
+        </h1>
+
+        <a class="button-grey lc-weibo js-signin-weibo" href="{{=it.weiboCallbackUrl}}">
+            <i class="sp-login sp-login-weibo"></i>Sign in with Weibo</a>
+
+        <div class="lc-register">Or <span class="lc-link js-signup-email">register</span> with your email address</div>
+
+    </div>
+
+</div>

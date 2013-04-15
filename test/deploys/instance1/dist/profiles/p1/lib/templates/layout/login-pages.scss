@@ -1,0 +1,69 @@
+
+@import "compass/css3/user-interface";
+@import "compass/css3/box-shadow";
+
+
+.login-footer {
+
+	width		: 100%;
+
+	border-top	: 1px solid #2a2425;
+	border-top	: 1px solid rgba( 0, 0, 0, .4 );
+
+	background	: rgba( 0, 0, 0, 0.1 );
+
+	@include box-shadow( rgba( 255, 255, 255, .13) 0 1px 0 0 inset );
+
+	position	: absolute;
+	bottom		: 0;
+	left		: 0;
+
+}
+
+.lf-nav-wrapper {
+
+	padding		: 0 15px;
+	margin		: 0;
+
+	@media ( min-width: 720px ) {
+
+		padding		: 0 20px;
+
+	}
+
+
+	@include float-right;
+
+}
+
+.lf-nav-elem {
+
+	@include float-left;
+
+}
+
+.lf-nav-link {
+
+	color		: #fff;
+	text-decoration : none;
+	cursor		: pointer;
+
+	display		: block;
+
+	padding		: 15px 7px;
+
+	&.lf-selected {
+
+		color	: #999;
+
+	}
+
+	@media ( min-width: 720px ) {
+
+		padding		: 20px 15px;
+		
+	}
+
+	@include user-select( none );
+
+}

@@ -1,0 +1,84 @@
+//
+// Bootstrap for desktop web browsers
+//
+//   * Imports of plugins and libraries
+//   * General styles
+//   * Layouts
+//   * Modules
+//   * Components
+//   * Overrides
+//
+// We use SMACSS & OOCSS as the foundation for our styling.
+// Please re-use so much of the pre-defined styles as possible.
+//
+// We use the following pre-fixes for SMACSS
+//
+//   * "l" - for layout
+//   * "m" - for modules
+//   * "c" - for components
+//   * "is" - for different states
+//
+// We don't use any pre-fixes for class-modifiers
+//
+// We have a rule one module per file and one component per
+// file!(Even if the modules or only have a few LOC)
+//
+// Under each file there should be a description and a content
+// list like on this file describing the file.
+//
+// On deploy to production. Please prune all the unused
+// CSS-selectors that stylewithclass produces
+//
+// As for comments:
+//
+//   * Use "//" if you don't want your comments to show up in
+//     your compiled files
+//   * Use "/* */" if you want your comments to show up in your
+//     compiled files
+//
+// Authors:
+//
+//   * Tingan, tingan87@gmail.com
+//	 * Velan, velanvijatovic@gmail.com
+//
+
+
+// Configuration
+
+$default-font-size: 16;
+
+
+/* General styles */
+@import	"../profiles/p1/lib/scss/normalize";
+@import "sassy-buttons";
+@import "compass/css3";
+@import "compass/utilities";
+
+/* Custom mixins */
+@import "../profiles/p1/lib/scss/utils_background_size_cover";
+
+* {
+  @include box-sizing( border-box );
+}
+
+@import "../profiles/p1/lib/scss/base";
+@import "../profiles/p1/lib/scss/buttons";
+@import "../profiles/p1/lib/scss/forms";
+@import "../profiles/p1/lib/scss/sprites";
+
+/* Modules */
+@import "../profiles/p1/modules/backoverlay/views/backoverlay";
+@import "../profiles/p1/modules/modal/views/modal";
+@import "../profiles/p1/modules/crop/views/crop";
+
+/* Main login layout */
+@import "../profiles/p1/modules/login_layout/login-pages.scss";
+
+/* Login page */
+@import "../profiles/p1/modules/login/login.scss";
+
+/* Signup pages */
+@import "../profiles/p1/modules/signup/signup.scss";
+
+
+

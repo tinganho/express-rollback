@@ -1,0 +1,178 @@
+
+@import "compass/css3/opacity";
+@import "compass/css3/user-interface";
+@import "compass/css3/box-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+
+
+.login-wrapper {
+
+	@include single-transition( opacity, .3s, ease-in-out );
+
+	@include opacity( 1 );
+
+  position  : relative;
+
+	.page-transition & {
+
+		@include opacity( 0 );
+
+	}
+
+}
+
+.login-header {
+
+	width			: 100%;
+	padding			: 15px;
+
+	@media ( min-width: 720px ) {
+
+		padding		: 20px 40px;
+
+	}
+
+
+	overflow		: hidden;
+
+	border-bottom	: 1px solid #2a2425;
+	border-bottom	: 1px solid rgba( 0, 0, 0, .4 );
+
+	background		: rgba( 255, 255, 255, 0.05 );
+
+	@include box-shadow( rgba( 255, 255, 255, .2) 0 1px 0 0 );
+
+	.sp-login-logo {
+
+		float			: left;
+
+	}
+}
+
+.lh-signin {
+
+	font-size		: 16px;
+	color			: #fff;
+
+	text-shadow		: 0 1px 0 #000;
+
+	cursor			: pointer;
+
+	@include float-right;
+
+	.sp-login-profile {
+
+		margin-right	: 10px;
+
+	}
+
+}
+
+.login-content {
+
+	min-width		: 320px;
+	max-width		: 600px;
+
+	padding			: 70px 15px 0;
+
+
+	@media ( min-width: 420px ) and ( max-width:720px ) {
+
+		max-width		: 420px;
+
+	}
+
+	@media ( min-width:720px ) {
+
+		padding			: 40px;
+
+	}
+
+	-webkit-animation 	: cool .3s ease-in-out;
+
+}
+
+@-webkit-keyframes cool {
+
+	from {
+
+		opacity		: 0;
+		@include transform( scale( .9 ) );
+
+	}
+	to {
+		opacity 	: 1;
+		@include transform( scale( 1 ) );
+	}
+
+}
+
+
+.lc-title {
+
+	font-size		: 20px;
+	line-height		: 1.3em;
+	font-weight		: 100;
+	color			: #fff;
+
+	@media ( min-width: 600px ) {
+
+		font-size		: 32px;
+
+	}
+
+
+	text-shadow		: 0 -1px 1px #000;
+
+}
+
+.lc-share {
+
+	margin-top		: 1em;
+}
+
+.lc-register {
+
+	margin-top		: 1em;
+	color			: #ccc;
+
+}
+
+.lc-link {
+
+	color			: #fff;
+	font-weight		: 500;
+
+	cursor			: pointer;
+
+}
+
+.lc-weibo {
+
+	margin-top		: 1em;
+	padding			: 10px 20px;
+
+	line-height		: 1.5em;
+
+	@media ( orientation : portrait ) {
+
+		width			: 100%;
+		text-align		: center;
+
+	}
+
+
+	@include box-shadow( rgba( 255, 255, 255, .4) 0 0 5px );
+
+	.sp-login-weibo {
+
+		margin-right	: 10px;
+		margin-top		: -8px;
+
+	}
+
+}
+
+@import "login-signin";
+@import "reset";

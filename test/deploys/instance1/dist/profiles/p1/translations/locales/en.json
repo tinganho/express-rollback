@@ -1,0 +1,97 @@
+{
+  "Full name": {
+    "vars": [],
+    "translations": "\"Full name\"",
+    "timestamp": 1361180356716
+  },
+  "Gender": {
+    "vars": [],
+    "translations": "\"Gender\"",
+    "timestamp": 1361180356716
+  },
+  "Male": {
+    "vars": [],
+    "translations": "\"Male\"",
+    "timestamp": 1361180356716
+  },
+  "Female": {
+    "vars": [],
+    "translations": "\"Female\"",
+    "timestamp": 1361180356716
+  },
+  "Birth date": {
+    "vars": [],
+    "translations": "\"Birth date\"",
+    "timestamp": 1361180356716
+  },
+  "Email": {
+    "vars": [],
+    "translations": "\"Email\"",
+    "timestamp": 1361180356716
+  },
+  "Set a password": {
+    "vars": [],
+    "translations": "\"Set a password\"",
+    "timestamp": 1361180356716
+  },
+  "By clicking Join you agree to P1’s terms of usage and privacy policy.": {
+    "vars": [],
+    "translations": "\"By clicking Join you agree to P1’s terms of usage and privacy policy.\"",
+    "timestamp": 1361265898440
+  },
+  "Join now": {
+    "vars": [],
+    "translations": "\"Join now\"",
+    "timestamp": 1361254811207
+  },
+  "Send": {
+    "vars": [],
+    "translations": "\"Send\"",
+    "timestamp": 1361787167949
+  },
+  "Zoom or reposition your image.": {
+    "vars": [],
+    "translations": "\"Zoom or reposition your image.\"",
+    "timestamp": 1361868942808
+  },
+  "jnrrnr()": {
+    "vars": [],
+    "translations": [],
+    "timestamp": 1362338002824
+  },
+  "Log in": {
+    "vars": [],
+    "translations": "\"Log in\"",
+    "timestamp": 1360931001394
+  },
+  "Share and recommend your favorite things": {
+    "vars": [],
+    "translations": "\"Share and recommend your favorite things\"",
+    "timestamp": 1360830139141
+  },
+  "get inspiration from your friends.": {
+    "vars": [],
+    "translations": "\"get inspiration from your friends.\"",
+    "timestamp": 1360909462716
+  },
+  "Sign in with weibo": {
+    "vars": [],
+    "translations": "\"Sign in with Wiebo\"",
+    "timestamp": 1360910586050
+  },
+  "Or register with your email address.": {
+    "vars": [],
+    "translations": "\"Or <a class='email-registration-link f-w-300'>register</a> with your email address.\"",
+    "timestamp": 1360917990121
+  },
+  "About us": {
+    "vars": [],
+    "translations": "\"About us\"",
+    "timestamp": 1360920841653
+  },
+  "Jobs": {
+    "vars": [],
+    "translations": "\"Jobs\"",
+    "timestamp": 1360920841653
+  }
+}

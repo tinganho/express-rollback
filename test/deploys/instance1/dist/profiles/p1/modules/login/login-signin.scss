@@ -1,0 +1,269 @@
+/* Login and forgot password box */
+
+@import "compass/css3/opacity";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+
+
+
+$panel-max-width	: 540px;
+$panel-margins		: 10px;
+$responsive-treshold: $panel-max-width + $panel-margins * 2;
+
+
+.login-overlay, .login-signin-wrapper {
+
+	@include transition-property( opacity, transform, z-index );
+	@include transition-duration( .5s );
+	@include transition-timing-function( ease-in-out );
+	@include transition-delay( 0, 0, .5s );
+
+	.ls-show & {
+
+		@include transition-property( opacity, transform, z-index );
+		@include transition-duration( .5s, .5s, 0 );
+		@include transition-delay( 0 );
+	}
+
+}
+
+.login-overlay {
+
+	position		: fixed;
+
+	width			  : 100%;
+	height			: 100%;
+
+	background  : rgba( 0, 0, 0, .4 );
+  background-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+
+
+	z-index			: -1;
+	@include opacity(0);
+
+	@include translateY( 0 );
+
+
+	.ls-show & {
+
+		z-index		: 5;
+		@include opacity(1);
+
+	}
+
+}
+
+.lt-ie9 .login-overlay {
+
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#88000000,endColorstr=#88000000);
+
+}
+
+.login-signin-wrapper {
+
+	position			: absolute;
+	z-index				: -1;
+
+	overflow			: hidden;
+
+	@include opacity( 0 );
+	@include translateY( -100% );
+
+	@media ( max-width: $responsive-treshold ) {
+
+		width				: 100%;
+		height				: 100%;
+
+		padding				: 10px;
+
+		// background			: rgba( 0, 0, 0, .4 );
+
+	}
+
+	@media ( min-width: $responsive-treshold ) {
+
+
+		width				: 470px;
+
+		left				: 50%;
+		margin-left			: -235px;
+
+	}
+
+	.ls-show & {
+
+		z-index				: 10;
+
+		@include opacity( 1 );
+		@include translateY( 0 );
+
+
+	}
+
+}
+
+.lt-ie9 .login-signin-wrapper {
+
+  width       : 470px;
+  left        : 50%;
+  margin-left : -235px;
+
+}
+
+.login-signin {
+
+	width				: 100%;
+	padding-bottom		: 15px;
+
+	background			: url( "../images/backgrounds/grey-pattern.png" ) repeat;
+
+    @media ( -webkit-min-device-pixel-ratio: 1.5 ),
+            ( min--moz-device-pixel-ratio: 3/2 ),
+            ( min-resolution: 1.5dppx ),
+            ( min-resolution: 192dpi ) {
+
+        background-size : 21px 21px;
+
+    }
+
+
+	@include box-shadow( 0 0 10px #000 );
+
+	.form-label {
+
+		width				: 85%;
+		margin				: 5px auto;
+		padding				: 0;
+
+	}
+
+	.form-input-alt {
+
+		margin-top			: 5px;
+
+	}
+
+}
+
+.ls-content-login, .ls-content-forgot {
+
+    @include transition-property( opacity, transform, z-index );
+    @include transition-duration( .3s, .3s, 0 );
+    @include transition-timing-function( ease-in-out );
+    @include transition-delay( 0 );
+
+    .ls-forgot & {
+
+        @include transition-property( opacity, transform, z-index );
+        @include transition-duration( .3s );
+        @include transition-delay( 0, 0, .3s );
+
+    }
+
+}
+
+.ls-content-login {
+
+	z-index				: 5;
+	@include opacity(1);
+	@include transform( translateX( 0 ) );
+
+
+	.ls-forgot & {
+
+		z-index				: 0;
+		@include opacity(0);
+		@include transform( translateX( -100% ) );
+
+	}
+
+}
+
+.ls-content-forgot {
+
+	z-index				: 0;
+
+	position			: absolute;
+	top					: 0;
+
+	height				: 100%;
+	padding-top			: 40px;
+
+	@include opacity(0);
+	@include transform( translateX( 100% ) );
+
+
+	.ls-forgot & {
+
+		z-index				: 5;
+		@include opacity(1);
+		@include transform( translateX( 0 ) );
+
+	}
+
+}
+
+
+.ls-weibo {
+
+	width				  : 85%;
+	display				: block;
+  color         : #424242;
+
+	margin				: 10px auto;
+	text-align		: center;
+
+	clear				: both;
+
+	.sp-login-weibo2 {
+
+		margin-right	: 10px;
+	}
+}
+
+.ls-footer {
+
+	overflow			: hidden;
+	padding				: 10px 0;
+
+
+	width				: 85%;
+	margin				: 0 auto;
+
+	.su-link {
+
+		display				: inline-block;
+		width				: 50%;
+		text-align			: left;
+
+	}
+
+}
+
+.ls-submit-wrapper {
+
+	width				: 50%;
+	display				: inline-block;
+	vertical-align		: middle;
+
+	.su-submit {
+
+		padding	  	: .3em;
+		float				: right;
+    min-width   : 100px;
+
+	}
+
+}
+
+.ls-close {
+
+	float				: right;
+	margin				: 10px;
+
+	cursor				: pointer;
+
+	position			: relative;
+	z-index				: 10;
+
+}

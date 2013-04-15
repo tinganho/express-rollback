@@ -1,0 +1,15 @@
+// Background image as a cover
+// Do not use on body or html elements as they affect links
+
+@mixin background-size-cover( $img ) {
+
+  		background				: url( $img ) no-repeat center center; 
+-webkit-background-size			: cover;
+   -moz-background-size			: cover;
+  	 -o-background-size			: cover;
+  		background-size			: cover;
+
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$img', sizingMethod='scale');
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='$img', sizingMethod='scale')";
+
+}

@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+var Rollback = require('../'),
+    grunt    = require('grunt'),
+    fs       = require('fs'),
+    config   = require('../conf/config'),
+    path     = require('path'),
+    commands = require('../conf/commands');
+
+var lastSuccess,
+    arguments   = process.argv.splice(2);
+
+// Instantiate rollback
+var rollback = new Rollback();
+
+if(grunt.file.isDir(config.ROLLBACK)) {
+  if(grunt.file.exists(config.ROLLBACK,
+      config.LAST_SUCCESS)) {
+    lastSuccess =
+      grunt.file.read(path.join(process.cwd(), config.ROLLBACK,
+        config.LAST_SUCCESS));
+    rollback.setLastSuccess(lastSuccess);
+  }
+}
+
+switch(arguments[0]) {
+  case commands._try:
+    rollback[arguments[0]](arguments[1]);
+    break;
+  case 'build':
+    rollback[arguments[0]](arguments[1]);
+    break;
+  default:
+    break;
+};

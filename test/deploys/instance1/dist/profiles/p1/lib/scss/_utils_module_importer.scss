@@ -1,0 +1,3 @@
+@function path-to-module( $module-name ) {
+  @return "modules/" + $module-name + "/view/" + $module-name;
+}

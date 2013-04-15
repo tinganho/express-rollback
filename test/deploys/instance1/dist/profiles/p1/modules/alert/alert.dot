@@ -1,0 +1,7 @@
+<div class="alert-modal">
+  <h1 class="alert-modal-title">{{=it.title}}</h1>
+  <p class="alert-modal-desc"></p>
+  <div class="alert-modal-button-container">
+    <a class="alert-modal-ok js-alert-modal-ok"></a>
+  </div>
+</div>

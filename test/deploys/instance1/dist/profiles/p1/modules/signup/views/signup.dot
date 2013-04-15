@@ -1,0 +1,13 @@
+
+{{##def.profile : load('./signup-profile.dot') #}}
+{{##def.friends : load('./signup-friends.dot') #}}
+{{##def.help    : load('./signup-help.dot') #}}
+
+<div class="signup-wrapper">
+
+    {{#def.profile}}
+    {{#def.friends}}
+
+</div>
+
+{{#def.help}}
