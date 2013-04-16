@@ -188,11 +188,22 @@ Rollback.prototype.getCurrentPid = function() {
 Rollback.prototype.closeServer = function(cb) {
   var pid = this.getCurrentPid();
   if(pid) {
-    process.kill(pid);
-    console.log('hej')
+    try {
+      process.kill(pid);
+      grunt.file.delete(path.join(config.ROLLBACK, config.SERVER_PID));
+    } catch(e) {
+      console.log('Server probably already closed');
+      if(typeof cb === 'function') {
+        cb();
+      }
+      grunt.file.delete(path.join(config.ROLLBACK, config.SERVER_PID));
+      process.exit();
+    };
   }
   setTimeout(function() {
-    cb();
+    if(typeof cb === 'function') {
+      cb();
+    }
   }, 3000);
 };
 

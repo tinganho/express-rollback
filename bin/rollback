@@ -30,6 +30,11 @@ switch(arguments[0]) {
   case 'build':
     rollback[arguments[0]](arguments[1]);
     break;
+  case 'stop':
+    rollback.closeServer(function() {
+      console.log('Closed server');
+    });
+    break;
   default:
     break;
 };
