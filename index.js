@@ -1,4 +1,3 @@
-
 var util   = require('util'),
     grunt  = require('grunt'),
     sys    = require('sys'),
@@ -45,12 +44,14 @@ Rollback.prototype.try = function(instance) {
           self.build(this, function() {
             grunt.log.error('Something went wrong with the build');
           });
+          grunt.log.ok('Start building');
         }, function() {
           self.runTest(this, function() {
             grunt.log.error('Some test didn\'t pass');
           });
           grunt.log.ok('The build was ok');
         }, function() {
+          grunt.log.ok('Start closing the server');
           self.closeServer(this);
         }, function() {
           self.lastSuccess = self.tryInstance;
@@ -193,6 +194,12 @@ Rollback.prototype.closeServer = function(cb) {
     try {
       process.kill(pid);
       grunt.file.delete(path.join(config.ROLLBACK, config.SERVER_PID));
+      setTimeout(function() {
+        if(typeof cb === 'function') {
+          cb();
+          console.log('Closed server');
+        }
+      }, 5000);
     } catch(e) {
       console.log('Server probably already closed');
       if(typeof cb === 'function') {
@@ -200,11 +207,7 @@ Rollback.prototype.closeServer = function(cb) {
       }
     };
   }
-  setTimeout(function() {
-    if(typeof cb === 'function') {
-      cb();
-    }
-  }, 5000);
+
 };
 
 Rollback.prototype.setTarType = function(type) {
