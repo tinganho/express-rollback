@@ -28,7 +28,7 @@ Rollback.prototype.try = function(instance) {
       deployablePath = path.join(process.cwd(),
                        config.DEPLOYABLES, instance);
 
-  if(grunt.file.exists(deployablePath)) {
+  if(!grunt.file.exists(deployablePath)) {
     grunt.log.error('You haven\'t deployed a tag yet. It needs to be in zip format.');
     return false;
   }
