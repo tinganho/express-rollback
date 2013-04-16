@@ -21,11 +21,17 @@ function Rollback() {
 };
 
 Rollback.prototype.try = function(instance) {
-  this.tryInstance = instance;
-  var self       = this,
-      deployPath = path.join(process.cwd(),
-                    config.DEPLOYS, path.basename(instance, '.zip'));
+  this.tryInstance   = instance;
+  var self           = this,
+      deployPath     = path.join(process.cwd(),
+                         config.DEPLOYS, path.basename(instance, '.zip'));
+      deployablePath = path.join(process.cwd(),
+                       config.DEPLOYABLES, instance);
 
+  if(grunt.file.exists(deployablePath)) {
+    grunt.log.error('You haven\'t deployed a tag yet. It needs to be in zip format.');
+    return false;
+  }
   if(grunt.file.exists(deployPath)) {
     grunt.file.delete(deployPath);
   }
