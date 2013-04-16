@@ -44,12 +44,10 @@ Rollback.prototype.try = function(instance) {
         function() {
           self.build(this, function() {
             grunt.log.error('Something went wrong with the build');
-            process.exit();
           });
         }, function() {
           self.runTest(this, function() {
-            grunt.log.error('Some test didn\' pass');
-            process.exit();
+            grunt.log.error('Some test didn\'t pass');
           });
           grunt.log.ok('The build was ok');
         }, function() {
@@ -59,7 +57,6 @@ Rollback.prototype.try = function(instance) {
           self.saveLastSuccess();
           self.startServer(this, function() {
             grunt.log.error('Something went wrong when starting server');
-            process.exit();
           });
           grunt.log.ok('All test was ok');
         }, function() {
