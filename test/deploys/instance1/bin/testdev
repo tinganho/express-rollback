@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-echo 'Running development tests...'
-./node_modules/mocha/bin/mocha test/test_dev.js

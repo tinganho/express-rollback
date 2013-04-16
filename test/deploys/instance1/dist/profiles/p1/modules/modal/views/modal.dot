@@ -1,7 +1,0 @@
-<form class="modal initial">
-  <div class="body">{{=it.body}}</div>
-  <footer class="modal-footer">
-    <input class="button-blue modal-submit-layout" type="submit" value="{{=it.send}}"></input>
-    <p class="modal-desc">{{=it.desc}}</p>
-  </footer>
-</form>

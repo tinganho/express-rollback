@@ -1,4 +1,0 @@
-<div id="mocha"></div>
-<script src="lib/mocha-1.2.2/mocha.js"></script>
-<script>mocha.setup('bdd')</script>
-

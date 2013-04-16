@@ -1,1 +1,0 @@
-require('../dist/profiles/p1/routes/signup/spec')();

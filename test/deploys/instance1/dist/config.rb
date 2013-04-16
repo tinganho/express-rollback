@@ -1,5 +1,0 @@
-base_path = 'app'
-images_dir = 'app/public/images'
-css_dir = 'app/public/styles'
-sass_dir = 'app/build'
-http_generated_images_path = '../../public/images'
