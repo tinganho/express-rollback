@@ -36,10 +36,10 @@ Rollback.prototype.try = function(instance) {
     grunt.file.delete(deployPath);
   }
 
-  exec('unzip ' +
+  exec('echo A | unzip ' +
     path.join(process.cwd, config.DEPLOYABLES, instance) + ' -d ' +
     deployPath
-    , function(err, stdout) {
+    , function(err, stdout, stderr) {
       step(
         function() {
           self.build(this, function() {
@@ -55,7 +55,7 @@ Rollback.prototype.try = function(instance) {
         }, function() {
           self.closeServer(this);
         }, function() {
-          this.lastSuccess = this.tryInstance;
+          self.lastSuccess = self.tryInstance;
           self.saveLastSuccess();
           self.startServer(this, function() {
             grunt.log.error('Something went wrong when starting server');
@@ -73,7 +73,6 @@ Rollback.prototype.try = function(instance) {
 Rollback.prototype.startServer = function(cb, err) {
 
   var cmd = 'nohup bash -c "node dist/server.js > output.log 2>&1 &"';
-
   exec(cmd,
     { cwd :
       path.join(
@@ -210,7 +209,7 @@ Rollback.prototype.closeServer = function(cb) {
     if(typeof cb === 'function') {
       cb();
     }
-  }, 3000);
+  }, 5000);
 };
 
 Rollback.prototype.setTarType = function(type) {
@@ -219,10 +218,6 @@ Rollback.prototype.setTarType = function(type) {
 
 Rollback.prototype.getLastSuccess = function() {
   return this.lastSuccess;
-};
-
-Rollback.prototype.revert = function() {
-
 };
 
 Rollback.prototype.setLastSuccess = function(lastSuccess) {
