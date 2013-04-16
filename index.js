@@ -37,7 +37,7 @@ Rollback.prototype.try = function(instance) {
   }
 
   exec('echo A | unzip ' +
-    path.join(process.cwd, config.DEPLOYABLES, instance) + ' -d ' +
+    path.join(process.cwd(), config.DEPLOYABLES, instance) + ' -d ' +
     deployPath
     , function(err, stdout, stderr) {
       step(
