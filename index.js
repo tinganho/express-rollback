@@ -201,8 +201,6 @@ Rollback.prototype.closeServer = function(cb) {
       if(typeof cb === 'function') {
         cb();
       }
-      grunt.file.delete(path.join(config.ROLLBACK, config.SERVER_PID));
-      process.exit();
     };
   }
   setTimeout(function() {
