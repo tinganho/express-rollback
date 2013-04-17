@@ -35,6 +35,9 @@ switch(arguments[0]) {
       console.log('Closed server');
     });
     break;
+  case '-v':
+    var pjson = require('../package.json');
+    console.log(pjson.version);
   default:
     break;
 };
