@@ -47,7 +47,7 @@ Rollback.prototype.try = function(instance) {
           });
           grunt.log.ok('The build was ok');
         }, function() {
-          grunt.log.ok('Start closing the server');
+          grunt.log.ok('Start closing old instances');
           self.closeServer(this);
         }, function() {
           self.lastSuccess = self.tryInstance;
@@ -77,6 +77,7 @@ Rollback.prototype.startServer = function(cb, err) {
     , function(error, stdout, stderr) {
       if(!error) {
         setTimeout(function() {
+          grunt.log.ok('The new instance started');
           cb();
         }, 1000);
       } else {
@@ -122,7 +123,7 @@ Rollback.prototype.runTest = function(cb, err) {
       process.cwd(),
       config.DEPLOYS,
       path.basename(this.tryInstance, '.zip'))
-    )}
+    }
   , function(error, stdout, stderr) {
     if(!error) {
       cb();
@@ -191,7 +192,6 @@ Rollback.prototype.closeServer = function(cb) {
       }
       if(typeof cb === 'function') {
         cb();
-        console.log('Closed server');
       }
     } catch(e) {
       console.log('Server probably already closed');
