@@ -6,7 +6,8 @@ var util   = require('util'),
     fs     = require('fs'),
     config = require('./conf/config'),
     path   = require('path'),
-    step   = require('step');
+    step   = require('step'),
+    msg    = require('./conf/messages');
 
 function Rollback() {
   this.lastSuccess;
@@ -24,7 +25,7 @@ Rollback.prototype.try = function(instance) {
                        config.DEPLOYABLES, instance);
 
   if(!grunt.file.exists(deployablePath)) {
-    grunt.log.error('You haven\'t deployed a tag yet. It needs to be in zip format.');
+    grunt.log.error(msg.YOU_HAVENT_DEPLOYED_A_TAG_YET);
     return false;
   }
   if(grunt.file.exists(deployPath)) {
@@ -38,24 +39,24 @@ Rollback.prototype.try = function(instance) {
       step(
         function() {
           self.build(this, function() {
-            grunt.log.error('Something went wrong with the build');
+            grunt.log.error(msg.SOMETHING_WENT_WRONG_WITH_THE_BUILD);
           });
-          grunt.log.ok('Start building');
+          grunt.log.ok(msg.START_BUILDING);
         }, function() {
           self.runTest(this, function() {
-            grunt.log.error('Some test didn\'t pass');
+            grunt.log.error(msg.SOME_TEST_DIDNT_PASS);
           });
-          grunt.log.ok('The build was ok');
+          grunt.log.ok(msg.THE_BUILD_WAS_OK);
         }, function() {
-          grunt.log.ok('Start closing old instances');
+          grunt.log.ok(msg.START_CLOSING_OLD_INSTANCES);
           self.closeServer(this);
         }, function() {
           self.lastSuccess = self.tryInstance;
           self.saveLastSuccess();
           self.startServer(this, function() {
-            grunt.log.error('Something went wrong when starting server');
+            grunt.log.error(msg.SOMETHING_WENT_WRONG_WHEN_STARTING_SERVER);
           });
-          grunt.log.ok('All test was ok');
+          grunt.log.ok(msg.ALL_TEST_WAS_OK);
         }, function() {
           var pid = self.getLatestPid();
           self.storePid(pid);
@@ -104,7 +105,7 @@ Rollback.prototype.getLatestPid = function() {
     process.cwd(),
     config.DEPLOYS,
     path.basename(this.lastSuccess, '.zip'),
-    'output.log'
+    config.OUTPUT_LOG
   ));
   return content.match(/^\d+/)[0];
 };
@@ -194,7 +195,7 @@ Rollback.prototype.closeServer = function(cb) {
         cb();
       }
     } catch(e) {
-      console.log('Server probably already closed');
+      grunt.log.ok(msg.SERVER_PROBABLY_ALREADY_CLOSED);
       if(typeof cb === 'function') {
         cb();
       }
@@ -202,7 +203,6 @@ Rollback.prototype.closeServer = function(cb) {
   } else {
     cb();
   }
-
 };
 
 Rollback.prototype.setTarType = function(type) {
