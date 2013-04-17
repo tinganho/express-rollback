@@ -12,11 +12,7 @@ function Rollback() {
   this.lastSuccess;
   this.tryInstance;
   this.serverPid;
-  this.tarType =
-  this.tars = {
-    tar   : 'tar xvfz',
-    unzip : 'unzip'
-  }
+  this.tarType;
 };
 
 Rollback.prototype.try = function(instance) {
@@ -121,17 +117,13 @@ Rollback.prototype.runTest = function(cb, err) {
     path.basename(this.tryInstance, '.zip'),
     'bin/test'
   ), '755');
-  var cmd =
-  String.prototype.concat(
-    'cd ',
-    path.join(
+  exec('npm test',
+    { cwd : path.join(
       process.cwd(),
       config.DEPLOYS,
-      path.basename(this.tryInstance, '.zip')
-    ),
-    ' && npm test'
-  );
-  exec(cmd, function(error, stdout, stderr) {
+      path.basename(this.tryInstance, '.zip'))
+    )}
+  , function(error, stdout, stderr) {
     if(!error) {
       cb();
     } else {
@@ -193,19 +185,22 @@ Rollback.prototype.closeServer = function(cb) {
   if(pid) {
     try {
       process.kill(pid);
-      grunt.file.delete(path.join(config.ROLLBACK, config.SERVER_PID));
-      setTimeout(function() {
-        if(typeof cb === 'function') {
-          cb();
-          console.log('Closed server');
-        }
-      }, 5000);
+      var pidPath = path.join(config.ROLLBACK, config.SERVER_PID);
+      if(grunt.file.exists(pidPath)) {
+        grunt.file.delete(pidPath);
+      }
+      if(typeof cb === 'function') {
+        cb();
+        console.log('Closed server');
+      }
     } catch(e) {
       console.log('Server probably already closed');
       if(typeof cb === 'function') {
         cb();
       }
     };
+  } else {
+    cb();
   }
 
 };
