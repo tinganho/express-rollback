@@ -153,6 +153,10 @@ Rollback.prototype.saveLastSuccess = function() {
 Rollback.prototype.build = function(cb, err) {
   var cmd = 'npm install'
 
+  var timer = setInterval(function() {
+    grunt.log.ok(msg.STILL_BUILDING);
+  }, 500*60);
+
   exec(cmd,
     { cwd : path.join(
       process.cwd(),
@@ -160,6 +164,7 @@ Rollback.prototype.build = function(cb, err) {
       path.basename(this.tryInstance, '.zip')
     )}
   , function(error, stdout, stderr) {
+    clearInterval(timer);
     if(!error) {
       cb();
     } else {

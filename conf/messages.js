@@ -7,5 +7,6 @@ module.exports = {
   THE_BUILD_WAS_OK                          : 'The build was ok',
   START_CLOSING_OLD_INSTANCES               : 'Start closing old instances',
   SOMETHING_WENT_WRONG_WHEN_STARTING_SERVER : 'Something went wrong when starting server',
-  ALL_TEST_WAS_OK                           : 'All test was ok'
+  ALL_TEST_WAS_OK                           : 'All test was ok',
+  STILL_BUILDING                            : 'Still building'
 };
