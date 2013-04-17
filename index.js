@@ -22,7 +22,7 @@ Rollback.prototype.try = function(instance) {
       deployPath     = path.join(process.cwd(),
                          config.DEPLOYS, path.basename(instance, '.zip'));
       deployablePath = path.join(process.cwd(),
-                       config.DEPLOYABLES, instance);
+                        config.DEPLOYABLES, instance);
 
   if(!grunt.file.exists(deployablePath)) {
     grunt.log.error(msg.YOU_HAVENT_DEPLOYED_A_TAG_YET);
@@ -78,7 +78,7 @@ Rollback.prototype.startServer = function(cb, err) {
     , function(error, stdout, stderr) {
       if(!error) {
         setTimeout(function() {
-          grunt.log.ok('The new instance started');
+          grunt.log.ok(msg.THE_NEW_INSTANCE_STARTED);
           cb();
         }, 1000);
       } else {
