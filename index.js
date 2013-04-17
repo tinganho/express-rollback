@@ -43,13 +43,13 @@ Rollback.prototype.try = function(instance) {
           });
           grunt.log.ok(msg.START_BUILDING);
         }, function() {
+          grunt.log.ok(msg.THE_BUILD_WAS_OK);
+          grunt.log.ok(msg.START_CLOSING_OLD_INSTANCES);
+          self.closeServer(this);
+        }, function() {
           self.runTest(this, function() {
             grunt.log.error(msg.SOME_TEST_DIDNT_PASS);
           });
-          grunt.log.ok(msg.THE_BUILD_WAS_OK);
-        }, function() {
-          grunt.log.ok(msg.START_CLOSING_OLD_INSTANCES);
-          self.closeServer(this);
         }, function() {
           self.lastSuccess = self.tryInstance;
           self.saveLastSuccess();
