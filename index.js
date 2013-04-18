@@ -18,10 +18,16 @@ function Rollback() {
 
 Rollback.prototype.try = function(instance) {
   this.tryInstance   = instance;
+
+  if(!grunt.file.findup(config.ROLLBACK)) {
+    grunt.log.error(msg.YOU_ARE_NOT_IN_A_DEPLOY_FOLDER);
+    return false;
+  }
+
   var self           = this,
-      deployPath     = path.join(process.cwd(),
+      deployPath     = path.join(grunt.file.findup(config.ROLLBACK), '../',
                          config.DEPLOYS, path.basename(instance, '.zip'));
-      deployablePath = path.join(process.cwd(),
+      deployablePath = path.join(grunt.file.findup(config.ROLLBACK), '../',
                         config.DEPLOYABLES, instance);
 
   if(!grunt.file.exists(deployablePath)) {
@@ -33,7 +39,7 @@ Rollback.prototype.try = function(instance) {
   }
 
   exec('echo A | unzip ' +
-    path.join(process.cwd(), config.DEPLOYABLES, instance) + ' -d ' +
+    path.join(grunt.file.findup(config.ROLLBACK), '../', config.DEPLOYABLES, instance) + ' -d ' +
     deployPath
     , function(err, stdout, stderr) {
       step(
@@ -67,7 +73,7 @@ Rollback.prototype.startServer = function(cb, err) {
 
   var instanceDir =
   path.join(
-    process.cwd(),
+    grunt.file.findup(config.ROLLBACK), '../',
     config.DEPLOYS,
     path.basename(this.lastSuccess, '.zip')
   );
@@ -76,7 +82,6 @@ Rollback.prototype.startServer = function(cb, err) {
   exec(cmd,
     { cwd : instanceDir }
     , function(error, stdout, stderr) {
-      console.log(error, stdout, stderr);
       if(!error) {
         setTimeout(function() {
           grunt.log.ok(msg.THE_NEW_INSTANCE_STARTED);
@@ -94,14 +99,14 @@ Rollback.prototype.runTest = function(cb, err) {
   var self = this;
   // Chmod
   fs.chmodSync(path.join(
-    process.cwd(),
+    grunt.file.findup(config.ROLLBACK), '../',
     config.DEPLOYS,
     path.basename(this.tryInstance, '.zip'),
     'bin/test'
   ), '755');
   exec('npm test',
     { cwd : path.join(
-      process.cwd(),
+      grunt.file.findup(config.ROLLBACK), '../',
       config.DEPLOYS,
       path.basename(this.tryInstance, '.zip'))
     }
@@ -116,7 +121,7 @@ Rollback.prototype.runTest = function(cb, err) {
 };
 
 Rollback.prototype.saveLastSuccess = function() {
-  var pointersPath = path.join(process.cwd(), config.ROLLBACK),
+  var pointersPath = grunt.file.findup(config.ROLLBACK),
       lastSuccessPath = path.join(pointersPath, config.LAST_SUCCESS);
 
   if(!grunt.file.exists(pointersPath)) {
@@ -124,7 +129,7 @@ Rollback.prototype.saveLastSuccess = function() {
   }
 
   if(grunt.file.exists(lastSuccessPath)) {
-    grunt.file.delete(lastSuccessPath);
+    fs.unlinkSync(lastSuccessPath);
   }
 
   grunt.file.write(lastSuccessPath, this.lastSuccess);
@@ -139,7 +144,7 @@ Rollback.prototype.build = function(cb, err) {
 
   exec(cmd,
     { cwd : path.join(
-      process.cwd(),
+      grunt.file.findup(config.ROLLBACK), '../',
       config.DEPLOYS,
       path.basename(this.tryInstance, '.zip')
     )}
@@ -154,23 +159,10 @@ Rollback.prototype.build = function(cb, err) {
   });
 };
 
-Rollback.prototype.getCurrentPid = function() {
-  var _path =
-  path.join(
-    config.ROLLBACK,
-    config.SERVER_PID
-  );
-  if(grunt.file.exists(_path)) {
-    return grunt.file.read(_path);
-  } else {
-    return false;
-  }
-};
-
 Rollback.prototype.closeServer = function(cb) {
   var instanceDir =
   path.join(
-    process.cwd(),
+    grunt.file.findup(config.ROLLBACK), '../',
     config.DEPLOYS,
     path.basename(this.lastSuccess, '.zip')
   );
@@ -204,10 +196,10 @@ Rollback.prototype.setLastSuccess = function(lastSuccess) {
 };
 
 Rollback.prototype.init = function() {
-  if(!grunt.file.findup(config.ROLLBACK) {
-    grunt.file.mkdir('deploys');
-    grunt.file.mkdir('deployables');
-    grunt.file.mkdir('.rollback');
+  if(!grunt.file.findup(config.ROLLBACK)) {
+    grunt.file.mkdir(path.join(__dirname, 'deploys'));
+    grunt.file.mkdir(path.join(__dirname, 'deployables'));
+    grunt.file.mkdir(path.join(__dirname, '.rollback'));
     grunt.log.ok('Initialize a depoy folder');
   } else {
     grunt.log.ok('Your folder is already a deploy folder');
