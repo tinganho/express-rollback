@@ -34,7 +34,7 @@ switch(arguments[0]) {
   case 'stop':
     rollback.closeServer(function() {});
     break;
-  case 'current':
+  case 'latest':
     if(!grunt.file.exist(path.join(process.cwd(), '.rollback'))) {
       grunt.log.error(msg.YOU_NEED_TO_BE_IN_A_ROLLBACK_FOLDER);
     } else if(!grunt.file.exist(path.join(process.cwd(), '.rollback', conf.LAST_SUCCESS)) {
