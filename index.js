@@ -47,19 +47,17 @@ Rollback.prototype.try = function(instance) {
           grunt.log.ok(msg.START_CLOSING_OLD_INSTANCES);
           self.closeServer(this);
         }, function() {
+          grunt.log.ok(msg.START_RUNNING_TESTS);
           self.runTest(this, function() {
             grunt.log.error(msg.SOME_TEST_DIDNT_PASS);
           });
         }, function() {
+          grunt.log.ok(msg.ALL_TEST_WAS_OK);
           self.lastSuccess = self.tryInstance;
           self.saveLastSuccess();
           self.startServer(this, function() {
             grunt.log.error(msg.SOMETHING_WENT_WRONG_WHEN_STARTING_SERVER);
           });
-          grunt.log.ok(msg.ALL_TEST_WAS_OK);
-        }, function() {
-          var pid = self.getLatestPid();
-          self.storePid(pid);
         }
       );
   });
@@ -67,15 +65,18 @@ Rollback.prototype.try = function(instance) {
 
 Rollback.prototype.startServer = function(cb, err) {
 
-  var cmd = 'nohup bash -c "node dist/server.js > output.log 2>&1 &"';
+  var instanceDir =
+  path.join(
+    process.cwd(),
+    config.DEPLOYS,
+    path.basename(this.lastSuccess, '.zip')
+  );
+
+  var cmd = 'forever start -l ' + instanceDir + '/output.log -e ' + instanceDir + '/error.log dist/server.js';
   exec(cmd,
-    { cwd :
-      path.join(
-        process.cwd(),
-        config.DEPLOYS,
-        path.basename(this.lastSuccess, '.zip')
-      )}
+    { cwd : instanceDir }
     , function(error, stdout, stderr) {
+      console.log(error, stdout, stderr);
       if(!error) {
         setTimeout(function() {
           grunt.log.ok(msg.THE_NEW_INSTANCE_STARTED);
@@ -87,27 +88,6 @@ Rollback.prototype.startServer = function(cb, err) {
       }
   });
 
-};
-
-Rollback.prototype.storePid = function(pid) {
-  var pointersPath = path.join(process.cwd(), config.ROLLBACK),
-      serverPidPath = path.join(pointersPath, config.SERVER_PID);
-
-  if(!grunt.file.exists(pointersPath)) {
-    grunt.file.mkdir(pointersPath);
-  }
-  grunt.file.write(serverPidPath, pid);
-};
-
-Rollback.prototype.getLatestPid = function() {
-  var content =
-  grunt.file.read(path.join(
-    process.cwd(),
-    config.DEPLOYS,
-    path.basename(this.lastSuccess, '.zip'),
-    config.OUTPUT_LOG
-  ));
-  return content.match(/^\d+/)[0];
 };
 
 Rollback.prototype.runTest = function(cb, err) {
@@ -188,26 +168,24 @@ Rollback.prototype.getCurrentPid = function() {
 };
 
 Rollback.prototype.closeServer = function(cb) {
-  var pid = this.getCurrentPid();
-  if(pid) {
-    try {
-      process.kill(pid);
-      var pidPath = path.join(config.ROLLBACK, config.SERVER_PID);
-      if(grunt.file.exists(pidPath)) {
-        grunt.file.delete(pidPath);
-      }
-      if(typeof cb === 'function') {
+  var instanceDir =
+  path.join(
+    process.cwd(),
+    config.DEPLOYS,
+    path.basename(this.lastSuccess, '.zip')
+  );
+  var cmd = 'forever stop dist/server.js';
+  exec(cmd,
+    { cwd : instanceDir }
+    , function(error, stdout, stderr) {
+      if(!error) {
+        grunt.log.ok(msg.OLD_INSTANCE_CLOSED);
+        cb();
+      } else {
+        grunt.log.ok(msg.OLD_INSTANCES_PROBABLY_ALREADY_CLOSED);
         cb();
       }
-    } catch(e) {
-      grunt.log.ok(msg.SERVER_PROBABLY_ALREADY_CLOSED);
-      if(typeof cb === 'function') {
-        cb();
-      }
-    };
-  } else {
-    cb();
-  }
+  });
 };
 
 Rollback.prototype.setTarType = function(type) {
