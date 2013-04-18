@@ -1,6 +1,6 @@
 {
   "name": "express-rollback",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "An auto-rollback of express server",
   "main": "index.js",
   "scripts": {
