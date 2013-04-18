@@ -11,5 +11,7 @@ module.exports = {
   ALL_TEST_WAS_OK                           : 'All test was ok',
   STILL_BUILDING                            : 'Still building',
   THE_NEW_INSTANCE_STARTED                  : 'The new instance started',
-  START_RUNNING_TESTS                       : 'Start running tests'
+  START_RUNNING_TESTS                       : 'Start running tests',
+  YOU_NEED_TO_BE_IN_A_ROLLBACK_FOLDER       : 'You need to be in a rollback/deploy folder',
+  THERE_IS_NO_INSTANCES_STARTED             : 'There is no instances started yet'
 };

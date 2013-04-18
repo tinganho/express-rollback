@@ -5,7 +5,8 @@ var Rollback = require('../'),
     fs       = require('fs'),
     config   = require('../conf/config'),
     path     = require('path'),
-    commands = require('../conf/commands');
+    commands = require('../conf/commands'),
+    msg      = require('../conf/messages');
 
 var lastSuccess,
     arguments   = process.argv.splice(2);
@@ -24,7 +25,7 @@ if(grunt.file.isDir(config.ROLLBACK)) {
 }
 
 switch(arguments[0]) {
-  case commands._try:
+  case 'try':
     rollback[arguments[0]](arguments[1]);
     break;
   case 'build':
@@ -34,10 +35,18 @@ switch(arguments[0]) {
     rollback.closeServer(function() {});
     break;
   case 'current':
-    grunt.log.ok(rollback.getLastSuccess());
+    if(!grunt.file.exist(path.join(process.cwd(), '.rollback'))) {
+      grunt.log.error(msg.YOU_NEED_TO_BE_IN_A_ROLLBACK_FOLDER);
+    } else if(!grunt.file.exist(path.join(process.cwd(), '.rollback', conf.LAST_SUCCESS)) {
+      grunt.log.error(msg.THERE_IS_NO_INSTANCES_STARTED);
+    } else {
+      grunt.log.ok(rollback.getLastSuccess());
+    }
+    break;
   case '-v':
     var pjson = require('../package.json');
     console.log(pjson.version);
+    break;
   default:
     break;
 };
