@@ -31,10 +31,10 @@ switch(arguments[0]) {
     rollback[arguments[0]](arguments[1]);
     break;
   case 'stop':
-    rollback.closeServer(function() {
-      console.log('Closed server');
-    });
+    rollback.closeServer(function() {});
     break;
+  case 'current':
+    grunt.log.ok(rollback.getLastSuccess());
   case '-v':
     var pjson = require('../package.json');
     console.log(pjson.version);
