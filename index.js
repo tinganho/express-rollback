@@ -193,11 +193,25 @@ Rollback.prototype.setTarType = function(type) {
 };
 
 Rollback.prototype.getLastSuccess = function() {
+  if(!grunt.file.exists(path.join(grunt.file.findup(config.ROLLBACK), config.LAST_SUCCESS))) {
+    return msg.THERE_IS_NO_INSTANCES_STARTED;
+  }
   return this.lastSuccess;
 };
 
 Rollback.prototype.setLastSuccess = function(lastSuccess) {
   this.lastSuccess = lastSuccess;
+};
+
+Rollback.prototype.init = function() {
+  if(!grunt.file.findup(config.ROLLBACK) {
+    grunt.file.mkdir('deploys');
+    grunt.file.mkdir('deployables');
+    grunt.file.mkdir('.rollback');
+    grunt.log.ok('Initialize a depoy folder');
+  } else {
+    grunt.log.ok('Your folder is already a deploy folder');
+  }
 };
 
 module.exports = Rollback;

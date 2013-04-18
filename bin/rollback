@@ -13,13 +13,11 @@ var lastSuccess,
 
 // Instantiate rollback
 var rollback = new Rollback();
-
-if(grunt.file.isDir(config.ROLLBACK)) {
-  if(grunt.file.exists(config.ROLLBACK,
-      config.LAST_SUCCESS)) {
-    lastSuccess =
-      grunt.file.read(path.join(process.cwd(), config.ROLLBACK,
-        config.LAST_SUCCESS));
+var rollbackDir = grunt.file.findup('.rollback');
+if(rollbackDir) {
+  if(grunt.file.exists(rollbackDir, config.LAST_SUCCESS)) {
+    lastSuccess = grunt.file.read(path.join(rollbackDir,
+      config.LAST_SUCCESS));
     rollback.setLastSuccess(lastSuccess);
   }
 }
@@ -35,10 +33,8 @@ switch(arguments[0]) {
     rollback.closeServer(function() {});
     break;
   case 'latest':
-    if(!grunt.file.exist(path.join(process.cwd(), '.rollback'))) {
+    if(!grunt.file.findup('.rollback')) {
       grunt.log.error(msg.YOU_NEED_TO_BE_IN_A_ROLLBACK_FOLDER);
-    } else if(!grunt.file.exist(path.join(process.cwd(), '.rollback', conf.LAST_SUCCESS)) {
-      grunt.log.error(msg.THERE_IS_NO_INSTANCES_STARTED);
     } else {
       grunt.log.ok(rollback.getLastSuccess());
     }
